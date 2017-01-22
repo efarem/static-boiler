@@ -1,0 +1,8 @@
+body {
+  background: red;
+}
+
+.half {
+  lost-column: 1/2;
+  font-size: responsive 8px 40px;
+}
