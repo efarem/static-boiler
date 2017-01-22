@@ -1,4 +1,23 @@
 {
+  "name": "static-boiler",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "gulp",
+    "serve": "gulp serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efarem/static-boiler.git"
+  },
+  "keywords": [],
+  "author": "Frank Martin <frank.martin.86@hotmail.com> (https://efarem.github.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/efarem/static-boiler/issues"
+  },
+  "homepage": "https://github.com/efarem/static-boiler#readme",
+  "description": "Boilerplate for static html websites",
   "devDependencies": {
     "autoprefixer": "^6.7.0",
     "browser-sync": "^2.18.6",
