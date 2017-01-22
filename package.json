@@ -45,6 +45,7 @@
     "lost": "^8.0.0",
     "path": "^0.12.7",
     "postcss": "^5.2.11",
+    "postcss-simple-vars": "^3.0.0",
     "rucksack-css": "^0.9.1",
     "run-sequence": "^1.2.2",
     "sw-precache": "^4.3.0"

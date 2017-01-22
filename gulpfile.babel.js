@@ -8,6 +8,7 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import autoprefixer from 'autoprefixer';
 import lost from 'lost';
 import rucksack from 'rucksack-css';
+import cssVars from 'postcss-simple-vars';
 
 import pkg from './package.json';
 
@@ -22,7 +23,7 @@ gulp.task('images', () =>
       interlaced: true,
     })))
     .pipe(gulp.dest('dist/images'))
-    .pipe($.size({ title: 'images' }))
+    .pipe($.size({ title: 'images' })),
 );
 
 // Copy all files at the root level (app)
@@ -34,12 +35,12 @@ gulp.task('copy', () =>
   ], {
     dot: true,
   }).pipe(gulp.dest('dist'))
-    .pipe($.size({ title: 'copy' }))
+    .pipe($.size({ title: 'copy' })),
 );
 
 // Compile and automatically prefix stylesheets
-gulp.task('styles', () => {
-  return gulp.src([
+gulp.task('styles', () =>
+  gulp.src([
     'app/styles/**/*.css',
   ])
     .pipe($.newer('.tmp/styles'))
@@ -48,6 +49,7 @@ gulp.task('styles', () => {
       autoprefixer(),
       lost(),
       rucksack(),
+      cssVars(),
     ]))
     .pipe(gulp.dest('.tmp/styles'))
     // Concatenate and minify styles
@@ -55,8 +57,8 @@ gulp.task('styles', () => {
     .pipe($.size({ title: 'styles' }))
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest('dist/styles'))
-    .pipe(gulp.dest('.tmp/styles'));
-});
+    .pipe(gulp.dest('.tmp/styles')),
+);
 
 gulp.task('scripts', () =>
     gulp.src([
@@ -73,11 +75,11 @@ gulp.task('scripts', () =>
       .pipe($.size({ title: 'scripts' }))
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest('dist/scripts'))
-      .pipe(gulp.dest('.tmp/scripts'))
+      .pipe(gulp.dest('.tmp/scripts')),
 );
 
-gulp.task('html', () => {
-  return gulp.src('app/**/*.html')
+gulp.task('html', () =>
+  gulp.src('app/**/*.html')
     .pipe($.useref({
       searchPath: '{.tmp,app}',
       noAssets: true,
@@ -97,8 +99,8 @@ gulp.task('html', () => {
     })))
     // Output files
     .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))
-    .pipe(gulp.dest('dist'));
-});
+    .pipe(gulp.dest('dist')),
+);
 
 // Clean output directory
 gulp.task('clean', () => del(['.tmp', 'dist/*', '!dist/.git'], { dot: true }));
@@ -152,10 +154,10 @@ gulp.task('default', ['clean'], cb =>
 );
 
 // Copy over the scripts that are used in importScripts as part of the generate-service-worker task.
-gulp.task('copy-sw-scripts', () => {
-  return gulp.src(['node_modules/sw-toolbox/sw-toolbox.js', 'app/scripts/sw/runtime-caching.js'])
-    .pipe(gulp.dest('dist/scripts/sw'));
-});
+gulp.task('copy-sw-scripts', () =>
+  gulp.src(['node_modules/sw-toolbox/sw-toolbox.js', 'app/scripts/sw/runtime-caching.js'])
+    .pipe(gulp.dest('dist/scripts/sw')),
+);
 
 gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
   const rootDir = 'dist';
@@ -163,7 +165,7 @@ gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
 
   return swPrecache.write(filepath, {
     // Used to avoid cache conflicts when serving on localhost.
-    cacheId: pkg.name || 'web-starter-kit',
+    cacheId: pkg.name || 'static-boiler',
     // sw-toolbox.js needs to be listed first. It sets up methods used in runtime-caching.js.
     importScripts: [
       'scripts/sw/sw-toolbox.js',
